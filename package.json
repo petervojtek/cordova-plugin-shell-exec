@@ -1,0 +1,37 @@
+{
+  "name": "cordova-plugin-shell-exec",
+  "version": "1.0.0",
+  "description": "Apache Cordova Execute Shell Command Plugin",
+  "cordova": {
+    "id": "cordova-plugin-shell-exec",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/petervojtek/cordova-plugin-shell-exec"
+  },
+  "keywords": [
+    "exec",
+    "runtime",
+    "process",
+    "shell",
+    "console",
+    "command",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=5.0.0"
+    }
+  ],
+  "author": "Peter Vojtek",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/petervojtek/cordova-plugin-shell-exec/issues"
+  },
+  "homepage": "https://github.com/petervojtek/cordova-plugin-shell-exec"
+}

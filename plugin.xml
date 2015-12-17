@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin id="org.apache.cordova.shell-exec" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0">
+  <name>Exec</name>
+  <description>Apache Cordova Execute Shell Command Plugin</description>
+  <license>Apache 2.0</license>
+  <keywords>cordova,exec,runtime,process,shell,command</keywords>
+  <js-module name="shell-exec" src="www/shell-exec.js">
+    <clobbers target="shell-exec"/>
+  </js-module>
+  <platform name="android">
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="ShellExec">
+        <param name="android-package" value="org.apache.cordova.plugin.ShellExec"/>
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+    <source-file src="src/org/apache/cordova/plugin/ShellExec.java" target-dir="src/org/apache/cordova/ShellExec" />
+  </platform>
+</plugin>
