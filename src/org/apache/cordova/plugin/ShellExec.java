@@ -15,33 +15,44 @@ import org.json.JSONObject;
 public class ShellExec extends CordovaPlugin {
 
 @Override
-public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
 
         if (action.equals("exec")) {
-                Process p;
-                StringBuffer output = new StringBuffer();
-                int exitStatus = 100;
-                try {
-                        p = Runtime.getRuntime().exec((String) args.get(0));
-                        BufferedReader reader = new BufferedReader(
-                                new InputStreamReader(p.getInputStream()));
-                        String line = "";
-                        while ((line = reader.readLine()) != null) {
-                                output.append(line + "\n");
-                                p.waitFor();
-                        }
-                        exitStatus = p.exitValue();
-                }
-                catch (IOException e) {
-                        e.printStackTrace();
-                } catch (InterruptedException e) {
-                        e.printStackTrace();
-                }
+                final String cmd = (String) args.get(0);
+                cordova.getThreadPool().execute(new Runnable() {
+                        public void run() {
+                                Process p;
+                                StringBuffer output = new StringBuffer();
+                                int exitStatus = 100;
+                                try {
+                                        p = Runtime.getRuntime().exec(cmd);
+                                        BufferedReader reader = new BufferedReader( new InputStreamReader(p.getInputStream()) );
+                                        String line = "";
+                                        while ((line = reader.readLine()) != null) {
+                                                output.append(line + "\n");
+                                                //p.waitFor();
+                                        }
+                                        //exitStatus = p.exitValue();
+                                        exitStatus = p.waitFor();
+                                }
+                                catch (IOException e) {
+                                        e.printStackTrace();
+                                } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                }
 
-                JSONObject json = new JSONObject();
-                json.put("exitStatus", exitStatus);
-                json.put("output", output.toString());
-                callbackContext.success(json);
+                                try {
+                                        JSONObject json = new JSONObject();
+                                        json.put("exitStatus", exitStatus);
+                                        json.put("output", output.toString());
+                                        callbackContext.success(json);
+                                }
+                                catch(JSONException e){
+                                        e.printStackTrace();
+                                        callbackContext.success();
+                                }
+                        }
+                });
                 return true;
         }
         return false;
