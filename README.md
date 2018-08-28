@@ -9,6 +9,8 @@ Apache Cordova Plugin to Execute Commands in Smartphone's Operating System Shell
 ### Installation
 
 `$ cordova plugin add https://github.com/petervojtek/cordova-plugin-shell-exec.git`
+or
+`$ cordova plugin add cordova-plugin-shell-exec`
 
 ### Usage
 
